@@ -5,6 +5,7 @@ const FollowMouse = () => {
   const [enabled, setEnabled] = useState(false)
   const [position, setPosition] = useState({ x: 0 , y: 0 })
 
+  // pointer movement
   useEffect(() => {
     console.log("efecto ", { enabled })
 
@@ -24,12 +25,22 @@ const FollowMouse = () => {
     }
   }, [enabled])
 
+  // ocultar mouse
+  useEffect(() => {
+    document.body.classList.toggle('no-cursor', enabled)
+
+    return () => {
+      document.body.classList.remove('no-cursor')
+    }
+  }, [enabled])
+
   return (
     <main>
         <div style={{
           position: 'absolute',
           backgroundColor: '#09f',
           borderRadius: '50%',
+          border: '2px solid',
           opacity: 0.8,
           pointerEvents: 'none',
           left: -20,
